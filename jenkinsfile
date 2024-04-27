@@ -10,7 +10,20 @@ pipeline{
         stage('Unit and Integration Tests'){
             steps{
                 echo "Running unit and integration tests using JUnit and Selenium..."
-                
+            }
+            post {
+                success {
+                        mail to: 'matthew.sutrinso03@gmail.com',
+                        subject: "Stage Success: Integration Tests",
+                        body: "Stage completed successfully. Logs are attached.",
+                        attachLog: true
+                }
+                failure {
+                        mail to: 'matthew.sutrinso03@gmail.com',
+                        subject: "Stage Failed",
+                        body: "Stage failed. Logs are attached.",
+                        attachLog: true
+                }
             }
         }
         stage('Code Analysis'){
@@ -26,14 +39,14 @@ pipeline{
             post {
                 success {
                         mail to: 'matthew.sutrinso03@gmail.com',
-                        subject: "Pipeline Success",
-                        body: "Pipeline completed successfully. Logs are attached.",
+                        subject: "Stage Success: Security Scan",
+                        body: "Stage completed successfully. Logs are attached.",
                         attachLog: true
                 }
                 failure {
                         mail to: 'matthew.sutrinso03@gmail.com',
-                        subject: "Pipeline Failure",
-                        body: "Pipeline failed. Logs are attached.",
+                        subject: "Stage Failed",
+                        body: "Stage failed. Logs are attached.",
                         attachLog: true
                 }
             }
