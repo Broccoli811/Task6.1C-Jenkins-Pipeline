@@ -1,0 +1,54 @@
+pipeline{
+    agent any
+
+    stages{
+        stage('Build'){
+            steps{
+                echo "Building the code using Maven"
+            }
+        }
+        stage('Unit and Integration Tests'){
+            steps{
+                echo "Running unit and integration tests using JUnit and Selenium..."
+                
+            }
+        }
+        stage('Code Analysis'){
+            steps{
+                echo "Analyzing code using SonarQube..."
+                
+            }
+        }
+        stage('Security Scan'){
+            steps{
+                echo "Performing security scan using OWASP ZAP" 
+            }
+            post {
+                success {
+                        mail to: 'your@email.com',
+                        subject: "Pipeline Success",
+                        body: "Pipeline completed successfully. Logs are attached.",
+                        attachLog: true
+                }
+                failure {
+                        mail to: 'your@email.com',
+                        subject: "Pipeline Failure",
+                        body: "Pipeline failed. Logs are attached.",
+                        attachLog: true
+                }
+            }
+        }
+        stage('Deploying to Staging'){
+            steps{
+                echo "Deploying to staging server"
+                
+            }
+        }
+        stage('Deploy to Production'){
+            steps{
+                echo "Deploying to production server"
+                
+            }
+        }
+    }
+}
