@@ -25,13 +25,13 @@ pipeline{
             }
             post {
                 success {
-                        mail to: 'your@email.com',
+                        mail to: 'matthew.sutrinso03@gmail.com',
                         subject: "Pipeline Success",
                         body: "Pipeline completed successfully. Logs are attached.",
                         attachLog: true
                 }
                 failure {
-                        mail to: 'your@email.com',
+                        mail to: 'matthew.sutrinso03@gmail.com',
                         subject: "Pipeline Failure",
                         body: "Pipeline failed. Logs are attached.",
                         attachLog: true
