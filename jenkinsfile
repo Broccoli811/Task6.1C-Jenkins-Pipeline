@@ -50,7 +50,7 @@ pipeline {
         }
         failure {
             emailext (
-                mail to: 'matthew.sutrisno03@gmail.com',
+                to: 'matthew.sutrisno03@gmail.com',
                 subject: "Pipeline Failure",
                 body: "Pipeline failed. Logs are attached.",
                 attachLog: true
