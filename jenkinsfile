@@ -1,67 +1,51 @@
-pipeline{
+pipeline {
     agent any
 
-    stages{
-        stage('Build'){
-            steps{
+    stages {
+        stage('Build') {
+            steps {
                 echo "Building the code using Maven"
             }
         }
-        stage('Unit and Integration Tests'){
-            steps{
+        stage('Unit and Integration Tests') {
+            steps {
                 echo "Running unit and integration tests using JUnit and Selenium..."
             }
-            post {
-                success {
-                        mail to: 'matthew.sutrinso03@gmail.com',
-                        subject: "Stage Success: Integration Tests",
-                        body: "Stage completed successfully. Logs are attached.",
-                        attachLog: true
-                }
-                failure {
-                        mail to: 'matthew.sutrinso03@gmail.com',
-                        subject: "Stage Failed",
-                        body: "Stage failed. Logs are attached.",
-                        attachLog: true
-                }
-            }
         }
-        stage('Code Analysis'){
-            steps{
+        stage('Code Analysis') {
+            steps {
                 echo "Analyzing code using SonarQube..."
-                
             }
         }
-        stage('Security Scan'){
-            steps{
-                echo "Performing security scan using OWASP ZAP" 
-            }
-            post {
-                success {
-                        mail to: 'matthew.sutrinso03@gmail.com',
-                        subject: "Stage Success: Security Scan",
-                        body: "Stage completed successfully. Logs are attached.",
-                        attachLog: true
-                }
-                failure {
-                        mail to: 'matthew.sutrinso03@gmail.com',
-                        subject: "Stage Failed",
-                        body: "Stage failed. Logs are attached.",
-                        attachLog: true
-                }
+        stage('Security Scan') {
+            steps {
+                echo "Performing security scan using OWASP ZAP"
             }
         }
-        stage('Deploying to Staging'){
-            steps{
+        stage('Deploying to Staging') {
+            steps {
                 echo "Deploying to staging server"
-                
             }
         }
-        stage('Deploy to Production'){
-            steps{
+        stage('Deploy to Production') {
+            steps {
                 echo "Deploying to production server"
-                
             }
+        }
+    }
+
+    post {
+        success {
+            mail to: 'matthew.sutrinso03@gmail.com',
+            subject: "Pipeline Success",
+            body: "Pipeline completed successfully. Logs are attached.",
+            attachLog: true
+        }
+        failure {
+            mail to: 'matthew.sutrinso03@gmail.com',
+            subject: "Pipeline Failure",
+            body: "Pipeline failed. Logs are attached.",
+            attachLog: true
         }
     }
 }
