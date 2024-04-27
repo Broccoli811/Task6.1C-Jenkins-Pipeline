@@ -41,16 +41,20 @@ pipeline {
 
     post {
         success {
-            mail to: 'matthew.sutrisno03@gmail.com',
-            subject: "Pipeline Success",
-            body: "Pipeline completed successfully. Logs are attached.",
-            attachLog: true
+            emailext (
+                to: 'matthew.sutrisno03@gmail.com',
+                subject: "Pipeline Success",
+                body: "Pipeline completed successfully. Logs are attached.",
+                attachLog: true
+            )
         }
         failure {
-            mail to: 'matthew.sutrisno03@gmail.com',
-            subject: "Pipeline Failure",
-            body: "Pipeline failed. Logs are attached.",
-            attachLog: true
+            emailext (
+                mail to: 'matthew.sutrisno03@gmail.com',
+                subject: "Pipeline Failure",
+                body: "Pipeline failed. Logs are attached.",
+                attachLog: true
+            )
         }
     }
 }
